@@ -1,0 +1,27 @@
+﻿
+
+
+@model IEnumerable<Product>
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+
+    @foreach (var product in Model)
+    {
+        <div class="col-sm-12 col-md-4">
+            <h3>@product.Name</h3>
+            <h3>@product.Description</h3>
+            <h3>@product.Price</h3>
+            <img class="img-fluid" src="@product.Image" alt="@product.Name" />
+            <a class="btn btn-primary" asp-controller="Product" asp-action="Details" asp-route-id="@product.ID">View this Product</a>
+        <form method="post" asp-action="Details">
+            <input name="ID" value="@product.ID" type="hidden" />
+            <input type="submit" class="btn btn-primary" value="Add To Cart" />
+        </form>
+        </div>
+    }
+
