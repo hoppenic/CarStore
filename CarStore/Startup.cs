@@ -9,6 +9,13 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CarStore.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+
+
 
 namespace CarStore
 {
@@ -26,6 +33,15 @@ namespace CarStore
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
+                services.AddDbContext<IdentityDbContext>(opt => opt.UseInMemoryDatabase("Identitites"));
+
+                services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<IdentityDbContext>()
+                .AddDefaultTokenProviders();
+
+                services.AddMvc();
+
+
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
